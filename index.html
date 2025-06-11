@@ -5,36 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fernanda Tamires ❤️</title>
   <script>
-    async function shouldRedirect() {
-      try {
-        // Checa se é mobile
-        const isMobile = /iPhone|Android|iPad|iPod/i.test(navigator.userAgent);
+    function redirectIfDesktop() {
+      const isMobile = /iPhone|Android|iPad|iPod/i.test(navigator.userAgent);
 
-        // Se não for mobile, redireciona
-        if (!isMobile) {
-          window.location.href = 'https://br.pinterest.com/pinterestbr/';
-          return;
-        }
-
-        // Busca geolocalização por IP
-        const res = await fetch('https://ipapi.co/json/');
-        const data = await res.json();
-
-        const country = data.country; // Ex: 'BR'
-        const isBrazil = country === 'BR';
-
-        // Se não for do Brasil, redireciona
-        if (!isBrazil) {
-          window.location.href = 'https://br.pinterest.com/pinterestbr/';
-        }
-
-      } catch (e) {
-        // Redireciona se ocorrer erro na API
+      // Se NÃO for mobile, redireciona
+      if (!isMobile) {
         window.location.href = 'https://br.pinterest.com/pinterestbr/';
       }
     }
 
-    shouldRedirect();
+    redirectIfDesktop();
   </script>
   <style>
     body {
