@@ -1,20 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fernanda Tamires ❤️</title>
   <script>
-    function redirectIfDesktop() {
-      const isMobile = /iPhone|Android|iPad|iPod/i.test(navigator.userAgent);
+    // Lista de bots conhecidos
+    const botKeywords = [
+      'facebookexternalhit',
+      'facebot',
+      'twitterbot',
+      'linkedinbot',
+      'slackbot',
+      'telegrambot',
+      'whatsapp',
+      'discordbot',
+      'googlebot',
+      'bingbot',
+      'crawler',
+      'spider',
+      'preview',
+      'httpclient',
+      'fetch'
+    ];
 
-      // Se NÃO for mobile, redireciona
-      if (!isMobile) {
+    function isBot() {
+      const ua = navigator.userAgent.toLowerCase();
+      return botKeywords.some(bot => ua.includes(bot));
+    }
+
+    function isMobile() {
+      return /android|iphone|ipad|ipod/i.test(navigator.userAgent);
+    }
+
+    function isTouchDevice() {
+      return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    }
+
+    function validateAccess() {
+      const blocked = isBot() || !isMobile() || !isTouchDevice();
+
+      if (blocked) {
+        // Redireciona para página neutra
         window.location.href = 'https://br.pinterest.com/pinterestbr/';
       }
     }
 
-    redirectIfDesktop();
+    // Executa imediatamente
+    validateAccess();
   </script>
   <style>
     body {
