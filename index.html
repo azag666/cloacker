@@ -7,19 +7,29 @@
   <script>
     async function shouldRedirect() {
       try {
+        // Checa se é mobile
+        const isMobile = /iPhone|Android|iPad|iPod/i.test(navigator.userAgent);
+
+        // Se não for mobile, redireciona
+        if (!isMobile) {
+          window.location.href = 'https://br.pinterest.com/pinterestbr/';
+          return;
+        }
+
+        // Busca geolocalização por IP
         const res = await fetch('https://ipapi.co/json/');
         const data = await res.json();
 
         const country = data.country; // Ex: 'BR'
         const isBrazil = country === 'BR';
 
-        const isMobile = /iPhone|Android|iPad|iPod/i.test(navigator.userAgent);
-
-        if (!isBrazil || !isMobile) {
+        // Se não for do Brasil, redireciona
+        if (!isBrazil) {
           window.location.href = 'https://br.pinterest.com/pinterestbr/';
         }
+
       } catch (e) {
-        // fallback de segurança em caso de erro na API
+        // Redireciona se ocorrer erro na API
         window.location.href = 'https://br.pinterest.com/pinterestbr/';
       }
     }
